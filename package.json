@@ -1,0 +1,26 @@
+{
+  "name": "sockets-yo",
+  "version": "1.0.0",
+  "description": "Chat application1",
+  "main": "index.js",
+  "scripts": {
+    "test": "hello"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UMDHackers/sockets-yo.git"
+  },
+  "keywords": [
+    "Socket.io"
+  ],
+  "author": "Parth Desai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UMDHackers/sockets-yo/issues"
+  },
+  "homepage": "https://github.com/UMDHackers/sockets-yo#readme",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.4.4"
+  }
+}
