@@ -59,7 +59,8 @@
     </form>
 
 
-    <ul id = "messages"></ul>
+    <ul id = "messages" style = "display:none;"></ul>
+    <p id = "who_typing"></p>
     <form action="" id = "form2" style = "display:none;">
       <input id = "m" autocomplete="off" /><button>Send</button>
     </form>
@@ -72,10 +73,21 @@
         socket.emit('nickname', $('#fname').val());
         $('#form1').css('display', 'none');
         $('#form2').css('display', 'block');
+        $('#messages').css('display', 'block');
         //$('#fname').val('');
         return false;
       });
-      //When you send a message
+      //when you are typing
+      $('#m').keypress(function () {
+        socket.emit('typ');
+      });
+
+      //reciving typing
+      socket.on('typing', function(username) {
+        $('#who_typing').text(username + " is typing");
+      });
+
+      //When you send a message and you see the
       $('#form2').submit(function() {
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
@@ -85,10 +97,16 @@
       //On reciving a chat message
       socket.on('chat message', function(msg){
         $('#messages').append($('<li>').text(msg));
+        $('#who_typing').text("");
       });
       //How many people here!
-      socket.on('welcome message', function(msg) {
-        $('#messages').append($('<li>').text(msg + " has entered chat"));
+      socket.on('welcome message', function(data) {
+        $('#messages').append($('<li>').text(data.usern + " has entered chat"));
+        $('#messages').append($('<li>').text("Users online now: " + data.usersn));
+      });
+      //disconnect
+      socket.on('left', function(data) {
+        $('#messages').append($('<li>').text(data + " disconnected"));
       });
     </script>
 
